@@ -16,6 +16,8 @@ body,html {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-image: url('images/tumblr_static_4y2skv97m24ogs84wc40sccso.jpeg');
+  background-size: cover;
 }
 
 .keys {
@@ -27,7 +29,7 @@ body,html {
 }
 
 .key {
-  border: .4rem solid black;
+  border: .4rem solid rgb(12, 12, 12);
   border-radius: .5rem;
   margin: 1rem;
   font-size: 1.5rem;
@@ -110,7 +112,13 @@ kbd {
       <audio data-key="76" src="audio/Drum Kit_sounds_tink.wav"></audio>
     
     <script>
-    
+      window.addEventListener('keydown', function(e){
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        const key = document.querySelector(`div.key[data-key="${e.keyCode}"]`);
+        audio.currentTime = 0 ; // rewinds it to the start of the function
+        audio.play();
+        key.classList.add('playing');
+      });
     </script>
     
 </body>
