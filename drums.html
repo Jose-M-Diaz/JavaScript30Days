@@ -112,13 +112,21 @@ kbd {
       <audio data-key="76" src="audio/Drum Kit_sounds_tink.wav"></audio>
     
     <script>
-      window.addEventListener('keydown', function(e){
+      window.addEventListener('keydown', function(e) {
         const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-        const key = document.querySelector(`div.key[data-key="${e.keyCode}"]`);
+        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+        if (!audio) return; //stops the function from running if not correct key
         audio.currentTime = 0 ; // rewinds it to the start of the function
         audio.play();
         key.classList.add('playing');
       });
+
+      function removeTransition(e) {
+        if (e.propertyName !== 'transform') return; //placing not null with return allows for less code to be written
+        this.classList.remove('playing');
+      }
+      const keys = document.querySelectorAll('.key');
+      keys.forEach(key => key.addEventListener('transitionend', removeTransition));
     </script>
     
 </body>
